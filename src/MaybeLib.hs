@@ -27,5 +27,10 @@ catMaybes (Just x :xs) = x : catMaybes xs
 catMaybes (Nothing:xs) = catMaybes xs
 catMaybes []           = []
 
+hasNothing :: [Maybe a] -> Bool
+hasNothing items = (>0) $ length $ filter isNothing items
+
 flipMaybe :: [Maybe a] -> Maybe [a]
-flipMaybe orig = undefined
+flipMaybe items = case hasNothing items of
+  True  -> Nothing
+  False -> Just $ catMaybes items
